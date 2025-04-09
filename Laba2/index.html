@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Лабораторная работа 2</title>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа 2</h1>
+        <nav>
+            <ul>
+                <li><a href="../index.html">Главная</a></li>
+                <li><a href="index.html">Лабораторная 2</a></li>
+                <li><a href="../Laba3/index.php">Лабораторная 3</a></li>
+                <li><a href="../Laba4/index.php">Лабораторная 4</a></li>
+				<li><a href="../Laba5/index.php">Лабораторная 5</a></li>
+                <li><a href="../Laba6/index.php">Лабораторная 6</a></li>
+                <li><a href="../Laba7/index.php">Лабораторная 7</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Результаты поиска слова "мель"</h2>
+<?php
+// Укажите путь к вашему файлу
+$filename = 'C:\localhost\Portfolio\Laba8\Laba2\laba2.txt';
+
+// Проверяем, существует ли файл
+if (!file_exists($filename)) {
+    die("Файл не найден.");
+}
+
+// Открываем файл для чтения
+$file = fopen($filename, 'r');
+if (!$file) {
+    die("Не удалось открыть файл.");
+}
+
+$lineNumbers = []; // Массив для хранения номеров строк
+$lineNumber = 0;   // Счетчик строк
+
+// Читаем файл построчно
+while (($line = fgets($file)) !== false) {
+    $lineNumber++; // Увеличиваем номер строки
+    // Проверяем, содержит ли строка слово "мель" с помощью регулярного выражения
+    if (preg_match('/\bмель\b/u', $line)) {
+        $lineNumbers[] = $lineNumber; // Добавляем номер строки в массив
+    }
+}
+
+// Закрываем файл
+fclose($file);
+
+// Выводим результат
+if (!empty($lineNumbers)) {
+    echo "Слово 'мель' найдено в следующих строках: " . implode(', ', $lineNumbers) . ".\n";
+} else {
+    echo "Слово 'мель' не найдено в файле.\n";
+}
+?>
+</main>
+</body>
+</html>
